@@ -26,7 +26,6 @@ namespace MakeJsonData
 
     class Program
     {
-        
         static void Main(string[] args)
         {
             string inputFolder = @"E:\Backup\Eve-Market\Vanguard_1.0_114986_db\";
@@ -45,7 +44,6 @@ namespace MakeJsonData
 		                mg.marketGroupName
                 ";
 
-
             Dictionary<int, Dictionary<string, object>> yamlObject;
             using (TextReader file = new StreamReader(inputFolder + "typeIDs.yaml"))
             {
@@ -54,10 +52,6 @@ namespace MakeJsonData
                     .Deserialize<Dictionary<int, Dictionary<string, object>>>(file);
 
             }
-
-            //var marketYamlObject = yamlObject
-            //    .Where(item => item.Value.Keys.Contains("marketGroupID"))
-            //    .ToArray();
 
             DataTable dt = new DataTable();
             SqlDataAdapter sda = new SqlDataAdapter(query, connectionString);
