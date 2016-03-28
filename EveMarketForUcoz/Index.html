@@ -1,34 +1,30 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" style="height: 100%;">
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>EVE Market</title>
-    <script src="Scripts/jquery-1.7.2.js"></script>
+    <script src="Scripts/jquery-2.2.1.min.js"></script>
     <script src="Scripts/MarketCatalogData.js"></script>
-    <!--<script src="Scripts/jquery-ui-1.11.4.js"></script>-->
+    <link href="Content/normalize.css" rel="stylesheet" />
     <link href="Content/themes/base/core.css" rel="stylesheet" />
     <link href="Content/themes/base/theme.css" rel="stylesheet" />
     <link href="Content/EveMarket.css" rel="stylesheet" />
 </head>
-<body>
-    <table>
-        <tr>
-            <td style="vertical-align: top;">
-                System:
-                <select id="SYSTEM">
-                    <option value="">- All -</option>
-                    <option value="30000142" selected="selected">Jita</option>
-                    <option value="30002187">Amarr</option>
-                </select>
-                <br /><br />
-                <div id="MARKETCATALOG"></div>
-            </td>
-            <td style="vertical-align: top; padding-left: 10px;">
-                <div id="MARKETDETAILS">
-                </div>
-            </td>
-        </tr>
-    </table>
+<body style="height: 100%;">
+    <div style="overflow-y: auto; height: 100%; width: 300px; float: left;">
+        <div style="padding: 10px;">
+            System:
+            <select id="SYSTEM">
+                <option value="">- All -</option>
+                <option value="30000142" selected="selected">Jita</option>
+                <option value="30002187">Amarr</option>
+            </select>
+            <br /><br />
+            <div id="MARKETCATALOG"></div>
+        </div>
+    </div>
+    <div id="MARKETDETAILS" style="height: 100%; overflow-y: auto; ">
+    </div>
     <script type="text/javascript" src="Scripts/EveMarket.js"></script>
 </body>
 </html>

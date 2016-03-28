@@ -41,7 +41,7 @@
                 var groupName = marketGroup[0];
                 var subGroups = marketGroup[1];
                 var types = marketGroup[2];
-                result += '<div class="' + (types == null ? '' : 'market-group-has-types ') + 'market-group market-group-collapsed"><div class="market-group-header"><span class="market-group-header-arrow"></span><span class="market-group-header-text" ' + (types == null ? '' : 'data-types="' + JSON.stringify(types) + '"') + '>' + groupName + '</span></div><div class="market-group-content">' + buildMarketCatalogHtml(subGroups) + buildMarketTypesHtml(types) + '</div></div>';
+                result += '<div class="' + (types == null ? '' : 'market-group-has-types ') + 'market-group market-group-collapsed"><div class="market-group-header"><span class="market-group-header-arrow"></span><span class="market-group-header-text">' + groupName + '</span></div><div class="market-group-content">' + buildMarketCatalogHtml(subGroups) + buildMarketTypesHtml(types) + '</div></div>';
             }
         }
 
@@ -76,6 +76,7 @@
 
         $.ajax({
             dataType: "json",
+            cache: true,
             url: url,
             beforeSend: function (data) {
                 timer = setTimeout(function () {
@@ -90,7 +91,7 @@
                 MARKETDETAILS.html('');
                 for (var i = 0; i < data.length; i++) {
                     var typeStat = data[i];
-                    typeStat['typeInfo'] = types.filter(function (type) { return type[0] == typeStat['buy']['forQuery']['types'][0] })[0];
+                    typeStat['typeInfo'] = types.filter(function (type) { return type[0] == typeStat['buy']['forQuery']['types'][0]; })[0];
 
                     MARKETDETAILS.append(
                         '<div><table><tr><td><img src="https://image.eveonline.com/Type/' + typeStat['typeInfo'][0] + '_64.png" /></td><td>' + typeStat['typeInfo'][1] + '</td></tr></table>'
