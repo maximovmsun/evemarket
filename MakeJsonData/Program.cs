@@ -28,8 +28,8 @@ namespace MakeJsonData
     {
         static void Main(string[] args)
         {
-            string inputFolder = @"E:\Backup\Eve-Market\Vanguard_1.0_114986_db\";
-            string outpuFolder = @"F:\Projects\EveMarket\EveMarketForUcoz\Scripts\";
+            string inputFolder = @"C:\Backup\YC-118-3_1.0_117575\";
+            string outpuFolder = @"C:\Projects\evemarket\EveMarketForUcoz\Scripts\";
             string connectionString = ConfigurationManager.ConnectionStrings["Vanguard"].ConnectionString;//"Data Source = localhost; Initial Catalog = ebs_DATADUMP; Integrated Security = True";
             string query =
                 @"
