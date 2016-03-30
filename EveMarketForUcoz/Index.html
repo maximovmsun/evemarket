@@ -5,26 +5,24 @@
     <title>EVE Market</title>
     <script src="Scripts/jquery-2.2.1.min.js"></script>
     <script src="Scripts/MarketCatalogData.js"></script>
+    <script type="text/javascript" src="Scripts/EveMarket.js"></script>
     <link href="Content/normalize.css" rel="stylesheet" />
     <link href="Content/themes/base/core.css" rel="stylesheet" />
     <link href="Content/themes/base/theme.css" rel="stylesheet" />
     <link href="Content/EveMarket.css" rel="stylesheet" />
 </head>
 <body style="height: 100%;">
-    <div style="overflow-y: auto; height: 100%; width: 300px; float: left;">
-        <div style="padding: 10px;">
-            System:
-            <select id="SYSTEM">
-                <option value="">- All -</option>
-                <option value="30000142" selected="selected">Jita</option>
-                <option value="30002187">Amarr</option>
-            </select>
-            <br /><br />
-            <div id="MARKETCATALOG"></div>
-        </div>
+    <div style="padding: 12px; position: fixed; top: 0; border-bottom: 1px solid silver; width: 100%; height: 50px; box-sizing: border-box;">
+        System:
+        <select id="SYSTEM">
+            <option value="">- All -</option>
+            <option value="30000142" selected="selected">Jita</option>
+            <option value="30002187">Amarr</option>
+        </select>
     </div>
-    <div id="MARKETDETAILS" style="height: 100%; overflow-y: auto; ">
+    <div style="height: 100%; box-sizing: border-box; padding-top: 50px;">
+        <div id="MARKETCATALOG" style="overflow-y: auto; height: 100%; padding: 10px; box-sizing: border-box; float: left; width: 350px;"></div>
+        <div id="MARKETDETAILS" style="overflow-y: auto; height: 100%; padding: 10px; box-sizing: border-box;"></div>
     </div>
-    <script type="text/javascript" src="Scripts/EveMarket.js"></script>
 </body>
 </html>

@@ -60,3 +60,7 @@
     text-align: right;
     min-width: 140px;
 }
+
+.market-type-text:hover {
+    background-color: lightblue;
+}

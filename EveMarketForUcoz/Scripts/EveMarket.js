@@ -64,7 +64,12 @@
     }
     
     function getMarketStat(types, systemId) {
+        if (typesCache.toString() == types.toString() && systemIdCache == systemId) {
+            return;
+        }
+
         typesCache = types;
+        systemIdCache = systemId;
 
         var url = 'https://api.eve-central.com/api/marketstat/json?typeid=' + types.map(function (type) { return type[0]; }).toString();
 
@@ -96,26 +101,19 @@
                     MARKETDETAILS.append(
                         '<div><table><tr><td><img src="https://image.eveonline.com/Type/' + typeStat['typeInfo'][0] + '_64.png" /></td><td>' + typeStat['typeInfo'][1] + '</td></tr></table>'
                         + '<table class="market-stat"><tr><td></td><th>Sell</th><th>Buy</th></tr>'
-                        + '<tr>'
-                        + '<tr><th>Volume</th>'
-                        + '<td>' + numberFormat(typeStat['sell']['volume']) + '</td><td>' + numberFormat(typeStat['buy']['volume']) + '</td>'
-                        + '</tr>'
-                        + '<tr><th>Min</th>'
-                        + '<td style="background-color: lightgreen">' + moneyFormat(typeStat['sell']['min']) + '</td><td>' + moneyFormat(typeStat['buy']['min']) + '</td>'
-                        + '</tr>'
-                        + '<tr><th>Max</th>'
-                        + '<td>' + moneyFormat(typeStat['sell']['max']) + '</td><td style="background-color: lightgreen">' + moneyFormat(typeStat['buy']['max']) + '</td>'
-                        + '</tr>'
-                        + '<tr><th>Avg</th>'
-                        + '<td>' + moneyFormat(typeStat['sell']['wavg']) + '</td><td>' + moneyFormat(typeStat['buy']['wavg']) + '</td>'
-                        + '</tr>'
-                        + '<tr><th>Median</th>'
-                        + '<td>' + moneyFormat(typeStat['sell']['median']) + '</td><td>' + moneyFormat(typeStat['buy']['median']) + '</td>'
-                        + '</tr>'
-                        + '<tr><th>5%</th>'
-                        + '<td>' + moneyFormat(typeStat['sell']['fivePercent']) + '</td>' + '<td>' + moneyFormat(typeStat['buy']['fivePercent']) + '</td>'
-                        + '</tr>'
-                        + '</tr></table></div><br><br>');
+                        + '<tr><tr><th>Volume</th><td>'
+                        + numberFormat(typeStat['sell']['volume']) + '</td><td>' + numberFormat(typeStat['buy']['volume'])
+                        + '</td></tr><tr><th>Min</th>'
+                        + '<td style="background-color: lightgreen">' + moneyFormat(typeStat['sell']['min']) + '</td><td>' + moneyFormat(typeStat['buy']['min'])
+                        + '</td></tr><tr><th>Max</th><td>'
+                        + moneyFormat(typeStat['sell']['max']) + '</td><td style="background-color: lightgreen">' + moneyFormat(typeStat['buy']['max'])
+                        + '</td></tr><tr><th>Avg</th><td>'
+                        + moneyFormat(typeStat['sell']['wavg']) + '</td><td>' + moneyFormat(typeStat['buy']['wavg'])
+                        + '</td></tr><tr><th>Median</th><td>'
+                        + moneyFormat(typeStat['sell']['median']) + '</td><td>' + moneyFormat(typeStat['buy']['median'])
+                        + '</td></tr><tr><th>5%</th><td>'
+                        + moneyFormat(typeStat['sell']['fivePercent']) + '</td>' + '<td>' + moneyFormat(typeStat['buy']['fivePercent'])
+                        + '</td></tr></tr></table></div><br><br>');
                 }
             }
 
@@ -123,11 +121,12 @@
     }
 
     var typesCache = [];
+    var systemIdCache = null;
 
     var MARKETCATALOG = $("#MARKETCATALOG");
     MARKETCATALOG.html(buildMarketCatalogHtml(marketCatalog));
 
-    $(".market-group-header-arrow, .market-group-header-text").click(function () {
+    $(".market-group-header-arrow, .market-group-header-text:not(.market-group-has-types)").click(function () {
         var marketGroup = $(this).parent().parent();
 
         if (marketGroup.hasClass('market-group-collapsed')) {
@@ -138,18 +137,28 @@
         }
     });
 
+    $(".market-group-has-types .market-group-header-text").click(function () {
+        var marketGroup = $(this).parent().parent();
+
+        if (marketGroup.hasClass('market-group-collapsed')) {
+            marketGroup.removeClass('market-group-collapsed');
+        }
+    });
+
     $(".market-type-text").click(function () {
         var typeId = this.getAttribute('data-type');
         var name = this.innerHTML;
         var types = [[typeId, name]];
+        var systemId = $('#SYSTEM').val();
 
-        getMarketStat(types);
+        getMarketStat(types, systemId);
     });
 
     $(".market-group-has-types .market-group-header-text").click(function () {
         var types = $(".market-type-text", $(this).parent().parent()).toArray().map(function (span) { return [span.getAttribute('data-type'), span.innerHTML] });
+        var systemId = $('#SYSTEM').val();
 
-        getMarketStat(types);
+        getMarketStat(types, systemId);
     });
 
     $('#SYSTEM').change(function () {
