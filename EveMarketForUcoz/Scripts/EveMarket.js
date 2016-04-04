@@ -126,6 +126,8 @@
     var MARKETCATALOG = $("#MARKETCATALOG");
     MARKETCATALOG.html(buildMarketCatalogHtml(marketCatalog));
 
+    $("#LEFTPANELTABS").tabs();
+
     $(".market-group-header-arrow, .market-group-header-text:not(.market-group-has-types)").click(function () {
         var marketGroup = $(this).parent().parent();
 

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
@@ -20,17 +17,32 @@ namespace MakeJsonData
     class MarketGroup
     {
         public string Name;
-        public MarketGroup[] SubGroups;
-        public MarketType[] MarketTypes;
+        public IEnumerable<MarketGroup> SubGroups;
+        public IEnumerable<MarketType> MarketTypes;
     }
 
     class Program
     {
         static void Main(string[] args)
         {
-            string inputFolder = @"C:\Backup\YC-118-3_1.0_117575\";
             string outpuFolder = @"C:\Projects\evemarket\EveMarketForUcoz\Scripts\";
+            Dictionary<int, Dictionary<string, object>> yamlObject = GetMarketTypesYaml();
+
+            IEnumerable<MarketGroup> marketGroups = GetMarketGroups(yamlObject);
+            IEnumerable<MarketType> marketTypes = GetMarketTypes(yamlObject);
+
+            string marketGroupsJson = GetMarketGroupsJson(marketGroups);
+            string marketTypesJson = GetMarketTypesJson(marketTypes);
+
+            string MarketCatalogJs = "var marketCatalog=" + marketGroupsJson + ";\nvar marketTypes=" + marketTypesJson + ";";
+
+            File.WriteAllText(outpuFolder + "MarketCatalogData.js", MarketCatalogJs);
+        }
+
+        private static IEnumerable<MarketGroup> GetMarketGroups(Dictionary<int, Dictionary<string, object>> yamlObject)
+        {
             string connectionString = ConfigurationManager.ConnectionStrings["Vanguard"].ConnectionString;//"Data Source = localhost; Initial Catalog = ebs_DATADUMP; Integrated Security = True";
+
             string query =
                 @"
                 SELECT
@@ -44,7 +56,19 @@ namespace MakeJsonData
 		                mg.marketGroupName
                 ";
 
+            DataTable dt = new DataTable();
+            SqlDataAdapter sda = new SqlDataAdapter(query, connectionString);
+            sda.Fill(dt);
+
+            IEnumerable<MarketGroup> MarketGroups = GetMarketSubGroups(dt, yamlObject, null);
+
+            return MarketGroups;
+        }
+
+        private static Dictionary<int, Dictionary<string, object>> GetMarketTypesYaml()
+        {
             Dictionary<int, Dictionary<string, object>> yamlObject;
+            string inputFolder = @"C:\Backup\YC-118-3_1.0_117575\";
             using (TextReader file = new StreamReader(inputFolder + "typeIDs.yaml"))
             {
                 var deserializer = new Deserializer();
@@ -53,17 +77,10 @@ namespace MakeJsonData
 
             }
 
-            DataTable dt = new DataTable();
-            SqlDataAdapter sda = new SqlDataAdapter(query, connectionString);
-            sda.Fill(dt);
-
-            MarketGroup[] MarketGroups = GetMarketGroups(dt, yamlObject, null);
-            string MarketCatalogJs = "var marketCatalog=" + GetMarketGroupsJson(MarketGroups) + ";";
-
-            File.WriteAllText(outpuFolder + "MarketCatalogData.js", MarketCatalogJs);
+            return yamlObject;
         }
 
-        static string GetMarketGroupsJson(MarketGroup[] marketGroups)
+        static string GetMarketGroupsJson(IEnumerable<MarketGroup> marketGroups)
         {
             string result = string.Join(",", marketGroups.Select(group => "[\"" + group.Name.Replace("\"", "\\\"") + "\"," + ((group.SubGroups == null) ? "" : GetMarketGroupsJson(group.SubGroups)) + ((group.MarketTypes == null) ? "" : "," + GetMarketTypesJson(group.MarketTypes)) + "]"));
 
@@ -75,7 +92,7 @@ namespace MakeJsonData
             return result;
         }
 
-        static string GetMarketTypesJson(MarketType[] marketTypes)
+        static string GetMarketTypesJson(IEnumerable<MarketType> marketTypes)
         {
             string result = string.Join(",", marketTypes.OrderBy(marketType => marketType.Name).Select(marketType => "[" + marketType.TypeID + ",\"" + marketType.Name.Replace("\"", "\\\"") + "\"]"));
 
@@ -87,26 +104,33 @@ namespace MakeJsonData
             return result;
         }
 
-        static MarketGroup[] GetMarketGroups(DataTable dt, Dictionary<int, Dictionary<string, object>> yamlObject, int? parentGroupID)
+        static IEnumerable<MarketGroup> GetMarketSubGroups(DataTable dt, Dictionary<int, Dictionary<string, object>> yamlObject, int? parentGroupID)
         {
-            return dt.AsEnumerable()
+            return dt.Rows.Cast<DataRow>()//.AsEnumerable()
                 .Where(row => row.Field<int?>("parentGroupID") == parentGroupID)
                 .Select(row => new MarketGroup
-                    {
-                        Name = row.Field<string>("marketGroupName"),
-                        SubGroups = row.Field<bool>("hasTypes") ? null : GetMarketGroups(dt, yamlObject, row.Field<int>("marketGroupID")),
-                        MarketTypes = row.Field<bool>("hasTypes") ? GetMarketTypes(yamlObject, row.Field<int>("marketGroupID")) : null
-                    }
-                )
-                .ToArray();
+                {
+                    Name = row.Field<string>("marketGroupName"),
+                    SubGroups = row.Field<bool>("hasTypes") ? null : GetMarketSubGroups(dt, yamlObject, row.Field<int>("marketGroupID")),
+                    MarketTypes = row.Field<bool>("hasTypes") ? GetMarketTypes(yamlObject, row.Field<int>("marketGroupID")) : null
+                });
+                //.ToArray();
         }
 
-        static MarketType[] GetMarketTypes(Dictionary<int, Dictionary<string, object>> yamlObject, int marketGroupID)
+        static IEnumerable<MarketType> GetMarketTypes(Dictionary<int, Dictionary<string, object>> yamlObject, int marketGroupID)
         {
             return yamlObject
                 .Where(item => item.Value.Keys.Contains("marketGroupID") && (string)item.Value["marketGroupID"] == marketGroupID.ToString())
-                .Select(item => new MarketType { TypeID = item.Key, Name = ((Dictionary<object, object>)item.Value["name"])["en"].ToString() })
-                .ToArray();
+                .Select(item => new MarketType { TypeID = item.Key, Name = ((Dictionary<object, object>)item.Value["name"])["en"].ToString() });
+            //.ToArray();
+        }
+
+        static IEnumerable<MarketType> GetMarketTypes(Dictionary<int, Dictionary<string, object>> yamlObject)
+        {
+            return yamlObject
+                .Where(item => item.Value.Keys.Contains("marketGroupID"))
+                .Select(item => new MarketType { TypeID = item.Key, Name = ((Dictionary<object, object>)item.Value["name"])["en"].ToString() });
+            //.ToArray();
         }
     }
 }

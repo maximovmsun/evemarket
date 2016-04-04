@@ -64,3 +64,39 @@
 .market-type-text:hover {
     background-color: lightblue;
 }
+
+.header {
+    padding: 12px; 
+    position: fixed;
+    top: 0; 
+    border-bottom: 1px solid silver; 
+    width: 100%; 
+    height: 50px; 
+    box-sizing: border-box;
+}
+
+.main-content {
+    height: 100%; 
+    box-sizing: border-box;
+    padding-top: 50px;
+}
+
+#LEFTPANEL {
+    overflow-y: auto; 
+    height: 100%; 
+    /*padding: 10px*/; 
+    box-sizing: border-box; 
+    float: left; 
+    min-width: 300px;
+}
+
+#MARKETCATALOG {
+
+}
+
+#MARKETDETAILS {
+    overflow-y: auto; 
+    height: 100%; 
+    padding: 10px; 
+    box-sizing: border-box; 
+}
