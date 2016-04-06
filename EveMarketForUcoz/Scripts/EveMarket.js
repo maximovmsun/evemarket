@@ -128,6 +128,34 @@
 
     $("#LEFTPANELTABS").tabs();
 
+    var typesSource = marketTypes.map(function (type) { return { value: type[1], label: type[1], id: type[0] } }); // [{ label: "label1", value: "value1" }, { label: "label2", value: "value2" }];
+    $("#TYPES").autocomplete({
+        source: function (request, response) {
+            var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
+            response($.grep(typesSource, function (item) {
+                return matcher.test(item.value);
+            }));
+        },
+        //source: typesSource,
+        minLength: 3,
+        select: function (event, ui) {
+            var types = [[ui.item.id, ui.item.value]];
+            var systemId = $('#SYSTEM').val();
+
+            getMarketStat(types, systemId);
+        },
+        response: function (event, ui) {
+            if (ui.content.length > 20) {
+                ui.content.splice(20);// = ui.content.slice(0, 20);
+            }
+        }
+    })
+    .autocomplete('instance')._renderItem = function (ul, item) {
+        return $('<li>')
+          .append('<img  style="vertical-align: middle;" src="https://image.eveonline.com/Type/' + item.id.toString() + '_32.png"></img> ' + item.value)
+          .appendTo(ul);
+    };
+
     $(".market-group-header-arrow, .market-group-header-text:not(.market-group-has-types)").click(function () {
         var marketGroup = $(this).parent().parent();
 
