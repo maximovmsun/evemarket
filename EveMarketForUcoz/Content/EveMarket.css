@@ -84,7 +84,6 @@
 #LEFTPANEL {
     overflow-y: auto; 
     height: 100%; 
-    /*padding: 10px*/; 
     box-sizing: border-box; 
     float: left; 
     min-width: 300px;
@@ -104,3 +103,23 @@
 #SEARCHTAB {
     min-height: 300px;
 }
+
+.search-history-item {
+    cursor: pointer;
+}
+
+.search-history-item:hover {
+	background: #dadada/*{bgColorHover}*/ url("/Content/themes/base/images/ui-bg_glass_75_dadada_1x400.png")/*{bgImgUrlHover}*/ 50%/*{bgHoverXPos}*/ 50%/*{bgHoverYPos}*/ repeat-x/*{bgHoverRepeat}*/;
+	font-weight: normal/*{fwDefault}*/;
+	color: #212121/*{fcHover}*/;
+}
+
+#SEARCHHISTORY {
+    min-width: 200px;
+}
+
+/*#CLEARHISTORY {
+    border-bottom: 1px dashed Highlight;
+    color: Highlight;
+    cursor: default;
+}*/

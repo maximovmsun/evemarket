@@ -30,7 +30,13 @@
                 </ul>
                 <div id="MARKETCATALOG">MARKETCATALOG</div>
                 <div id="SEARCHTAB">
-                    <input type="text" id="TYPES"/>
+                    <label><input type="radio" name="SEARCHTYPE" value="StartWith" checked="checked" /> Start With</label>
+                    <label><input type="radio" name="SEARCHTYPE" value="Contains" /> Contains</label>
+                    <br /><br />
+                    <input type="text" id="TYPES" />
+                    <br /><br />
+                    Search History: <!--<span id="CLEARHISTORY">Clear history</span>-->
+                    <table id="SEARCHHISTORY"></table>
                 </div>
             </div>
         </div>

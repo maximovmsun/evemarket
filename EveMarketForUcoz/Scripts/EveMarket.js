@@ -122,27 +122,35 @@
 
     var typesCache = [];
     var systemIdCache = null;
+    var searchHistory = [];
 
     var MARKETCATALOG = $("#MARKETCATALOG");
     MARKETCATALOG.html(buildMarketCatalogHtml(marketCatalog));
 
     $("#LEFTPANELTABS").tabs();
 
-    var typesSource = marketTypes.map(function (type) { return { value: type[1], label: type[1], id: type[0] } }); // [{ label: "label1", value: "value1" }, { label: "label2", value: "value2" }];
+    var typesSource = marketTypes.map(function (type) { return { value: type[1], label: type[1], id: type[0] } });
     $("#TYPES").autocomplete({
         source: function (request, response) {
-            var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
+            var matcher = new RegExp(($('input[name="SEARCHTYPE"]:checked').val() == 'StartWith' ? '^' : '') + $.ui.autocomplete.escapeRegex(request.term), "i");
             response($.grep(typesSource, function (item) {
                 return matcher.test(item.value);
             }));
         },
-        //source: typesSource,
         minLength: 3,
         select: function (event, ui) {
             var types = [[ui.item.id, ui.item.value]];
             var systemId = $('#SYSTEM').val();
 
             getMarketStat(types, systemId);
+
+            searchHistory.unshift({ typeId: ui.item.id, typeName: ui.item.value, systemId: systemId });
+
+            if (searchHistory.length > 20) {
+                searchHistory.pop();
+            }
+
+            buildSearchHistory();
         },
         response: function (event, ui) {
             if (ui.content.length > 20) {
@@ -155,6 +163,33 @@
           .append('<img  style="vertical-align: middle;" src="https://image.eveonline.com/Type/' + item.id.toString() + '_32.png"></img> ' + item.value)
           .appendTo(ul);
     };
+
+    function buildSearchHistory() {
+        var SEARCHHISTORY = $('#SEARCHHISTORY');
+        SEARCHHISTORY.html('');
+
+        searchHistory.forEach(function (value) { SEARCHHISTORY.append('<tr class="search-history-item" data-type="' + value.typeId + '"><td style="width: 35px;"><img src="https://image.eveonline.com/Type/' + value.typeId + '_32.png" /></td><td>' + value.typeName + '</td></tr>'); });
+
+        $('.search-history-item', SEARCHHISTORY).click(function () {
+            var typeId = this.getAttribute('data-type');
+            var name = marketTypes.filter(function (item) { return item[0] == typeId })[0][1];
+            var types = [[typeId, name]];
+
+            var systemId = $('#SYSTEM').val();
+
+            getMarketStat(types, systemId);
+        });
+    }
+
+    //$('#CLEARHISTORY')
+    //    .button()
+    //    .click(function (event) {
+    //        searchHistory = [];
+
+    //        buildSearchHistory();
+    //    });
+
+
 
     $(".market-group-header-arrow, .market-group-header-text:not(.market-group-has-types)").click(function () {
         var marketGroup = $(this).parent().parent();
@@ -176,8 +211,9 @@
     });
 
     $(".market-type-text").click(function () {
-        var typeId = this.getAttribute('data-type');
-        var name = this.innerHTML;
+        var typeId = parseInt(this.getAttribute('data-type'));
+
+        var name = marketTypes.filter(function (item) { return item[0] == typeId })[0][1]; //this.innerHTML;
         var types = [[typeId, name]];
         var systemId = $('#SYSTEM').val();
 
@@ -185,7 +221,11 @@
     });
 
     $(".market-group-has-types .market-group-header-text").click(function () {
-        var types = $(".market-type-text", $(this).parent().parent()).toArray().map(function (span) { return [span.getAttribute('data-type'), span.innerHTML] });
+        var types = $(".market-type-text", $(this).parent().parent()).toArray().map(function (span) {
+            var typeId = parseInt(span.getAttribute('data-type'));
+            var name = marketTypes.filter(function (item) { return item[0] == typeId })[0][1];
+            return [typeId, name]
+        });
         var systemId = $('#SYSTEM').val();
 
         getMarketStat(types, systemId);
