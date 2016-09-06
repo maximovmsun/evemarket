@@ -1,0 +1,9 @@
+{
+  "name": "eve-market-react",
+  "version": "0.0.0",
+  "description": "EveMarketReact",
+  "main": "app.js",
+  "author": {
+    "name": "amaksimov"
+  }
+}
