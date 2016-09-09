@@ -31,6 +31,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="src\main.js" />
+    <Compile Include="src\routes.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="src\css\style.css" />
@@ -49,6 +51,7 @@
     <Folder Include="typings\globals\gulp\" />
     <Folder Include="typings\globals\node\" />
     <Folder Include="typings\globals\react-dom\" />
+    <Folder Include="typings\globals\react-router\" />
     <Folder Include="typings\globals\react\" />
     <Folder Include="typings\globals\vinyl-source-stream\" />
   </ItemGroup>
@@ -60,6 +63,7 @@
     <TypeScriptCompile Include="typings\globals\gulp\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\node\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\react-dom\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\react-router\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\react\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\vinyl-source-stream\index.d.ts" />
     <TypeScriptCompile Include="typings\index.d.ts" />
