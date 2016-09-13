@@ -31,8 +31,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="gulpfile.js" />
+    <Compile Include="src\components\app.js" />
+    <Compile Include="src\components\autocompleteCountryBox.js" />
+    <Compile Include="src\components\autocompleteTest.js" />
+    <Compile Include="src\components\notFoundPage.js" />
     <Compile Include="src\main.js" />
-    <Compile Include="src\routes.js" />
+    <Content Include="eslint.config.json" />
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="src\css\style.css" />
@@ -42,6 +47,7 @@
     <Folder Include="src\" />
     <Folder Include="src\css\" />
     <Folder Include="src\img\" />
+    <Folder Include="src\components\" />
     <Folder Include="typings\" />
     <Folder Include="typings\globals\" />
     <Folder Include="typings\globals\bootstrap\" />
@@ -53,6 +59,7 @@
     <Folder Include="typings\globals\react-dom\" />
     <Folder Include="typings\globals\react-router\" />
     <Folder Include="typings\globals\react\" />
+    <Folder Include="typings\globals\vinyl-buffer\" />
     <Folder Include="typings\globals\vinyl-source-stream\" />
   </ItemGroup>
   <ItemGroup>
@@ -65,6 +72,7 @@
     <TypeScriptCompile Include="typings\globals\react-dom\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\react-router\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\react\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\vinyl-buffer\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\vinyl-source-stream\index.d.ts" />
     <TypeScriptCompile Include="typings\index.d.ts" />
   </ItemGroup>

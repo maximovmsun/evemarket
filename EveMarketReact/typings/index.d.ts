@@ -7,4 +7,5 @@
 /// <reference path="globals/react-dom/index.d.ts" />
 /// <reference path="globals/react-router/index.d.ts" />
 /// <reference path="globals/react/index.d.ts" />
+/// <reference path="globals/vinyl-buffer/index.d.ts" />
 /// <reference path="globals/vinyl-source-stream/index.d.ts" />

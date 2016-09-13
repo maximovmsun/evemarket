@@ -6,13 +6,13 @@ var ReactRouter = require('react-router');
 var Router = ReactRouter.Router;
 var IndexRoute = ReactRouter.IndexRoute;
 var Route = ReactRouter.Route;
-var hashHistory = ReactRouter.hashHistory;
+var hashHistory = ReactRouter.browserHistory;
 
 ReactDOM.render(
-    <Router history={ItemUtil.getHistory() }>
+    <Router history={ hashHistory }>
         <Route name="app" path="/" component={require('./components/app') }>
-            <IndexRoute component={require('./components/registration/index') }/>
-            <Route name="login" path="/login" component={require('./components/login/login') }/>
+            <IndexRoute component={require('./components/AutocompleteTest') }/>
+            <Route name="AutocompleteTest" path="/AutocompleteTest" component={require('./components/AutocompleteTest') }/>
             <Route path="*" component={require('./components/notFoundPage') }/>
         </Route>
     </Router>,

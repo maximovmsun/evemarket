@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EveMarketForUcoz", "EveMark
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "EveMarketReact", "EveMarketReact\EveMarketReact.njsproj", "{29E5B4C7-9BB7-4B39-82F1-1E3B4440E24B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTestApi", "WebTestApi\WebTestApi.csproj", "{0C9E9287-9D1C-445B-992B-10F8D546DED1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{29E5B4C7-9BB7-4B39-82F1-1E3B4440E24B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29E5B4C7-9BB7-4B39-82F1-1E3B4440E24B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29E5B4C7-9BB7-4B39-82F1-1E3B4440E24B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C9E9287-9D1C-445B-992B-10F8D546DED1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C9E9287-9D1C-445B-992B-10F8D546DED1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C9E9287-9D1C-445B-992B-10F8D546DED1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C9E9287-9D1C-445B-992B-10F8D546DED1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
