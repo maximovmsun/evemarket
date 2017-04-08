@@ -1,8 +1,13 @@
-﻿var AutocompleteCountryBox = React.createClass({
+﻿"use strict";
+import React from 'react';
+//var React = require('react');
+var Autocomplete = require('react-autocomplete');
+
+var AutocompleteCountryBox = React.createClass({
     render: function () {
         return (
             <Autocomplete
-                value={this.state.value}
+                value={this.state.text}
                 inputProps={{ name: "US state", id: "states-autocomplete" }}
                 items={getStates() }
                 getItemValue={function (item) { return item.name; } }
@@ -21,8 +26,13 @@
     },
     getInitialState: function () {
         return {
-            value: '',
-            value2: ''
+            value: null,
+            text: ''
+        }
+    },
+    getDefaultProps: function getDefaultProps() {
+        return {
+            inputProps: {}
         }
     },
     onChange: function (event, value) {
