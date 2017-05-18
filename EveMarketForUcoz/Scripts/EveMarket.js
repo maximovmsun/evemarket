@@ -86,7 +86,7 @@
             beforeSend: function (data) {
                 timer = setTimeout(function () {
                     var MARKETDETAILS = $('#MARKETDETAILS');
-                    MARKETDETAILS.html('<img src="/Content/wait.gif"></img>');
+                    MARKETDETAILS.html('<img src="Content/wait.gif"></img>');
                 }, 500);
 
             },
