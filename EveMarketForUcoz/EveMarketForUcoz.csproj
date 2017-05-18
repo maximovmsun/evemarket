@@ -101,9 +101,9 @@
     </Content>
     <Content Include="Scripts\combobox.js" />
     <Content Include="Scripts\EveMarket.js" />
-    <Content Include="Scripts\jquery-2.2.1.js" />
+    <None Include="Scripts\jquery-2.2.1.js" />
     <Content Include="Scripts\jquery-2.2.1.min.js" />
-    <Content Include="Scripts\jquery-ui-1.11.4.js" />
+    <None Include="Scripts\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
     <Content Include="Scripts\MarketCatalogData.js" />
     <Content Include="Web.config" />
