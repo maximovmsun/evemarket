@@ -1,1 +1,46 @@
-test
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" style="height: 100%;">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>EVE Market</title>
+    <link href="Content/normalize.css" rel="stylesheet" />
+    <link href="Content/themes/base/all.css" rel="stylesheet" />
+    <link href="Content/EveMarket.css" rel="stylesheet" />
+    <link href="Content/combobox.css" rel="stylesheet" />
+    <script src="Scripts/jquery-2.2.1.js"></script>
+    <script src="Scripts/jquery-ui-1.11.4.js"></script>
+    <script src="Scripts/MarketCatalogData.js"></script>
+    <script type="text/javascript" src="Scripts/EveMarket.js"></script>
+</head>
+<body style="height: 100%;">
+    <div class="header">
+        System:
+        <select id="SYSTEM">
+            <option value="">- All -</option>
+            <option value="30000142" selected="selected">Jita</option>
+            <option value="30002187">Amarr</option>
+        </select>
+    </div>
+    <div class="main-content">
+        <div id="LEFTPANEL">
+            <div id="LEFTPANELTABS">
+                <ul>
+                    <li><a href="#MARKETCATALOG">Catalog</a></li>
+                    <li><a href="#SEARCHTAB">Search</a></li>
+                </ul>
+                <div id="MARKETCATALOG">MARKETCATALOG</div>
+                <div id="SEARCHTAB">
+                    <label><input type="radio" name="SEARCHTYPE" value="StartWith" checked="checked" /> Start With</label>
+                    <label><input type="radio" name="SEARCHTYPE" value="Contains" /> Contains</label>
+                    <br /><br />
+                    <input type="text" id="TYPES" />
+                    <br /><br />
+                    Search History: <!--<span id="CLEARHISTORY">Clear history</span>-->
+                    <table id="SEARCHHISTORY"></table>
+                </div>
+            </div>
+        </div>
+        <div id="MARKETDETAILS"></div>
+    </div>
+</body>
+</html>
