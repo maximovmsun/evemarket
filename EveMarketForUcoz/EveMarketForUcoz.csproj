@@ -95,7 +95,7 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\wait.gif" />
-    <Content Include="Index.html" />
+    <Content Include="index.html" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
