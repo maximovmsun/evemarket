@@ -7,7 +7,7 @@
     height: 16px;
     display: inline-block;
     vertical-align: bottom;
-    background: url("/Content/themes/base/images/ui-icons_222222_256x240.png");
+    background: url("themes/base/images/ui-icons_222222_256x240.png");
     background-position: -48px -16px;
 }
 
@@ -16,12 +16,12 @@
 }
 
 .market-group-header:hover .market-group-header-arrow {
-    background: url("/Content/themes/base/images/ui-icons_2e83ff_256x240.png");
+    background: url("themes/base/images/ui-icons_2e83ff_256x240.png");
     background-position: -48px -16px;
 }
 
 .market-group-collapsed .market-group-header:hover .market-group-header-arrow {
-    background: url("/Content/themes/base/images/ui-icons_2e83ff_256x240.png");
+    background: url("themes/base/images/ui-icons_2e83ff_256x240.png");
     background-position: -32px -16px;
 }
 
@@ -109,7 +109,7 @@
 }
 
 .search-history-item:hover {
-	background: #dadada/*{bgColorHover}*/ url("/Content/themes/base/images/ui-bg_glass_75_dadada_1x400.png")/*{bgImgUrlHover}*/ 50%/*{bgHoverXPos}*/ 50%/*{bgHoverYPos}*/ repeat-x/*{bgHoverRepeat}*/;
+	background: #dadada/*{bgColorHover}*/ url("themes/base/images/ui-bg_glass_75_dadada_1x400.png")/*{bgImgUrlHover}*/ 50%/*{bgHoverXPos}*/ 50%/*{bgHoverYPos}*/ repeat-x/*{bgHoverRepeat}*/;
 	font-weight: normal/*{fwDefault}*/;
 	color: #212121/*{fcHover}*/;
 }
